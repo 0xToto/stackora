@@ -1,0 +1,79 @@
+name: STACKORA - IPA iPhone sans compte Developer payant
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-unsigned-ipa:
+    runs-on: macos-15
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Installer les dependances du monorepo
+        run: npm ci
+
+      - name: Generer le projet iOS natif et installer les Pods
+        working-directory: mobile
+        run: npx expo prebuild --platform ios --clean --non-interactive
+
+      - name: Compiler pour iPhone physique sans signature Apple
+        working-directory: mobile
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          workspaces=(ios/*.xcworkspace)
+          if (( ${#workspaces[@]} != 1 )); then
+            echo "Workspace Xcode attendu, trouves: ${#workspaces[@]}"
+            exit 1
+          fi
+          workspace="${workspaces[0]}"
+          echo "Workspace : $workspace"
+          # Expo genere generalement le scheme a partir du nom du projet.
+          scheme="$(basename "$workspace" .xcworkspace)"
+          xcodebuild \
+            -workspace "$workspace" \
+            -scheme "$scheme" \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath "$RUNNER_TEMP/stackora-build" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY='' \
+            build
+
+      - name: Emballer en IPA non signe pour Sideloadly
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          apps=("$RUNNER_TEMP"/stackora-build/Build/Products/Release-iphoneos/*.app)
+          if (( ${#apps[@]} != 1 )); then
+            echo "Application iOS introuvable ou multiple : ${#apps[@]}"
+            exit 1
+          fi
+          mkdir -p "$RUNNER_TEMP/stackora-ipa/Payload" dist
+          ditto "${apps[0]}" "$RUNNER_TEMP/stackora-ipa/Payload/$(basename "${apps[0]}")"
+          cd "$RUNNER_TEMP/stackora-ipa"
+          zip -qry "$GITHUB_WORKSPACE/dist/STACKORA-unsigned.ipa" Payload
+          unzip -l "$GITHUB_WORKSPACE/dist/STACKORA-unsigned.ipa" | head -25
+
+      - name: Recuperer le fichier IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: STACKORA-iPhone-IPA-non-signe
+          path: dist/STACKORA-unsigned.ipa
+          if-no-files-found: error
+          retention-days: 7

@@ -4,6 +4,8 @@ Your table. Your rules.
 
 Application React Native / Expo et serveur de poker privé. Cette livraison réalise le premier parcours jouable : compte email, tournoi, invitation par code, bots, mains complètes, multi-tables et résultats. Elle n'est pas la réalisation intégrale du cahier des charges ni une application déjà publiée ou signée pour iOS.
 
+**Installation sur iPhone depuis Windows, sans Mac et sans compte Apple Developer payant :** voir [docs/INSTALLER_IPHONE_WINDOWS_GRATUIT.md](docs/INSTALLER_IPHONE_WINDOWS_GRATUIT.md). Le workflow `.github/workflows/iphone-ipa.yml` produit un IPA non signé pour Sideloadly. La compilation et l’installation sur appareil n’ont pas été validées.
+
 ## Démarrer sur votre ordinateur
 
 Prérequis : **Node.js 24**, npm, deux terminaux. Décompresser l'archive puis ouvrir un terminal dans `stackora`.
