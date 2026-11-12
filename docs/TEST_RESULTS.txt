@@ -1,0 +1,46 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> stackora@0.1.0 test
+> npm test -w server
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @stackora/server@0.1.0 test
+> node --import tsx --test test/*.test.ts
+
+✔ HTTP multiplayer: registration, private join, legal actions, persistence and logout (1591.150024ms)
+✔ WebSocket authentication, hidden cards and reconnect resynchronization (214.225463ms)
+✔ shuffle: 52 distinct cards and random ordering (5.116878ms)
+✔ wheel, flush, full house, quads, straight flush and large boards (14.414731ms)
+✔ headsup button is SB, acts first preflop, second after flop (2.681002ms)
+✔ out of turn, impossible check, negative and undersized raise rejected (3.644686ms)
+✔ short all-in does not reopen a full raiser (15.178393ms)
+✔ cumulative short raises reopen action at a full raise threshold (0.600418ms)
+✔ uncalled bet is returned; side pots preserve chips (1.161573ms)
+✔ privacy: own cards only; folded cards and deck never serialized (0.669166ms)
+✔ 72 BB walk has no bounty (1.378717ms)
+✔ 72 offensive victory charges one BB from every opponent (1.112341ms)
+✔ 72 showdown winner receives capped bounty with no negative stacks (0.932095ms)
+✔ ghost wins and accumulates carry across consecutive hands (10.210352ms)
+✔ ghost equality carries, human victory releases carry (7.101062ms)
+✔ ghost resolves even when all humans except one fold (2.725865ms)
+✔ red river opens extra rounds for reds, stops on black (10.207386ms)
+✔ all-in red river runs out without extra actions (1.876625ms)
+✔ split pot including odd chip remains integer (5.90044ms)
+✔ table distributions match all specified examples (1.96076ms)
+✔ 16 to 14 balances 7+7; 9 to 8 merges; unsafe transfer rejected (15.181639ms)
+✔ actions are idempotent and reject stale versions (0.952253ms)
+✔ 1200 randomized complete hands across all variants conserve chips (2217.272429ms)
+✔ complete 9-player bot tournaments in every variant (164.365047ms)
+✔ side pots and all-ins in every variant with deterministic tied board (8.859958ms)
+✔ 72 all-in losers pay zero bounty and no chip debt (0.548229ms)
+✔ odd chip goes clockwise from the button (0.521561ms)
+✔ transferred previous BB does not pay BB immediately after final-table merge (1.645678ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5400.906216

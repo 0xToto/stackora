@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "STACKORA",
+    "slug": "stackora",
+    "version": "0.1.0",
+    "scheme": "stackora",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "icon": "./assets/icon.png",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.stackora.mobile",
+      "infoPlist": {
+        "NSLocalNetworkUsageDescription": "STACKORA se connecte \u00e0 votre serveur de poker de test sur le r\u00e9seau local.",
+        "NSAppTransportSecurity": {
+          "NSAllowsLocalNetworking": true,
+          "NSAllowsArbitraryLoads": true
+        }
+      }
+    },
+    "plugins": ["expo-router", "expo-secure-store"],
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#102C27"
+    },
+    "web": {
+      "output": "single",
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

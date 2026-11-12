@@ -1,0 +1,25 @@
+{
+  "name": "@stackora/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --import tsx src/main.ts",
+    "test": "node --import tsx --test test/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "fastify": "^5.6.0",
+    "@fastify/cors": "^11.1.0",
+    "@fastify/websocket": "^11.2.0",
+    "@fastify/rate-limit": "^10.3.0",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.2",
+    "tsx": "^4.20.0",
+    "@types/node": "^24.0.0",
+    "@types/ws": "^8.18.0",
+    "ws": "^8.18.0"
+  }
+}
